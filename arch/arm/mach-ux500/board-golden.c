@@ -277,7 +277,7 @@ static void gp2a_pwr(bool on)
  * ------------------------------------------------------------------------- */
 static int __init tmd2672_setup(void);
 
-static struct tmd2672_platform_data tmd2672_plat_data __initdata = {
+static struct tmd2672_platform_data tmd2672_plat_data __refdata = {
 	.ps_vout_gpio	= PS_INT_GOLDEN_BRINGUP,
 	.hw_setup	= tmd2672_setup,
 	.alsout		= ADC_AUX2,
@@ -320,7 +320,7 @@ err1:
  * ------------------------------------------------------------------------- */
 static int __init px3215_setup(void);
 
-static struct px3215_platform_data px3215_plat_data __initdata = {
+static struct px3215_platform_data px3215_plat_data __refdata = {
 	.ps_vout_gpio	= PS_INT_GOLDEN_BRINGUP,
 	.hw_setup	= px3215_setup,
 	.alsout		= ADC_AUX2,
