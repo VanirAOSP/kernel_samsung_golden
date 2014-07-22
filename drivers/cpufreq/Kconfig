@@ -139,7 +139,17 @@ config CPU_FREQ_DEFAULT_GOV_SAKURACTIVE
 	  support the hotplug governor. If unsure have a look at
 	  the help section of the driver. Fallback governor will be the
 	  performance governor.
-  
+
+config CPU_FREQ_DEFAULT_GOV_INTERACTIVEX
+	bool "interactivex"
+	select CPU_FREQ_GOV_INTERACTIVEX
+	help
+          Use the CPUFreq governor 'interactivex' as default. This allows
+	  you to get a full dynamic cpu frequency capable system by simply
+	  loading your cpufreq low-level hardware driver, using the
+	  'interactivex' governor for latency-sensitive workloads.
+	  This governor uses hotplug to shutdown and start up cpu1 when suspended.
+ 
 endchoice
 
 config CPU_FREQ_GOV_PERFORMANCE
@@ -282,7 +292,21 @@ config CPU_FREQ_GOV_SAKURACTIVE
   	  
 	  If in doubt, say N.
 
-     
+config CPU_FREQ_GOV_INTERACTIVEX
+	tristate "'interactivex' cpufreq governor"
+	depends on CPU_FREQ
+	help
+	  'interactiveX' -  This driver adds a dynamic cpufreq policy governor
+	  designed for latency-sensitive workloads.
+
+	  This governor attempts to reduce the latency of clock
+	  increases so that the system is more responsive to
+	  interactive workloads.
+	  This governor uses hotplug to shutdown and start up cpu1 when suspended.
+	  
+	  If in doubt, say N.
+
+	       
 menu "x86 CPU frequency scaling drivers"
 depends on X86
 source "drivers/cpufreq/Kconfig.x86"
