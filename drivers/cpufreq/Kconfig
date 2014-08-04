@@ -183,6 +183,12 @@ config CPU_FREQ_DEFAULT_GOV_PEGASUSQPLUS
 	help
     	  Use the CPUFreq governor 'pegasusqplus' as default.
     	  
+config CPU_FREQ_DEFAULT_GOV_ZENX
+        bool "ZenX"
+        select CPU_FREQ_GOV_ZENX
+        help
+           Use the CPUFreq governor 'ZenX' as default.
+    	  
 endchoice
 
 config CPU_FREQ_GOV_PERFORMANCE
@@ -366,6 +372,19 @@ config CPU_FREQ_GOV_PEGASUSQPLUS
         help	
 		
 	  If in doubt, say N.
+	  
+config CPU_FREQ_GOV_ZENX
+      tristate "'ZenX' cpufreq governor"
+      depends on CPU_FREQ
+      help
+         'ZenX' - an interactive-based governor
+
+          This governor provides full CPU hotplugging support
+          based on average CPU load across all CPUs.
+
+          For details, take a look at linux/Documentation/cpu-freq.
+
+          If in doubt, say N
 
 	       
 menu "x86 CPU frequency scaling drivers"
