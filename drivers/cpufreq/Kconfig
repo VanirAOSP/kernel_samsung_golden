@@ -87,6 +87,20 @@ config CPU_FREQ_DEFAULT_GOV_ONDEMAND
 	  Be aware that not all cpufreq drivers support the ondemand
 	  governor. If unsure have a look at the help section of the
 	  driver. Fallback governor will be the performance governor.
+	  
+config CPU_FREQ_DEFAULT_GOV_ONDEMANDQ
+	bool "ondemandq"
+	select CPU_FREQ_GOV_ONDEMANDQ
+	select CPU_FREQ_GOV_PERFORMANCE
+	help
+	  Use the CPUFreq governor 'ondemand' as default. This allows
+	  you to get a full dynamic frequency capable system by simply
+	  loading your cpufreq low-level hardware driver.
+	  Be aware that not all cpufreq drivers support the ondemand
+	  governor. If unsure have a look at the help section of the
+	  driver. Fallback governor will be the performance governor.
+	  This governor uses hotplug to shutdown and start up cpu1
+	  when suspended.
 
 config CPU_FREQ_DEFAULT_GOV_CONSERVATIVE
 	bool "conservative"
@@ -207,6 +221,12 @@ config CPU_FREQ_GOV_ONDEMAND
 
 	  If in doubt, say N.
 
+config CPU_FREQ_GOV_ONDEMANDQ
+	tristate "'ondemand' cpufreq policy governor"
+	depends on HAS_EARLYSUSPEND
+	help
+	   Based on ondemand, hotplug in suspend.
+	  
 config CPU_FREQ_GOV_INTERACTIVE
 	tristate "'interactive' cpufreq policy governor"
 	help
@@ -306,7 +326,7 @@ config CPU_FREQ_GOV_INTERACTIVEX
 	  
 	  If in doubt, say N.
 
-	       
+
 menu "x86 CPU frequency scaling drivers"
 depends on X86
 source "drivers/cpufreq/Kconfig.x86"
