@@ -177,6 +177,12 @@ config CPU_FREQ_DEFAULT_GOV_LULZACTIVEQ
 	help
     	  Use the CPUFreq governor 'lulzactiveq' as default.
 
+config CPU_FREQ_DEFAULT_GOV_PEGASUSQPLUS
+	bool "pegasusqplus"
+	select CPU_FREQ_GOV_PEGASUSQPLUS
+	help
+    	  Use the CPUFreq governor 'pegasusqplus' as default.
+    	  
 endchoice
 
 config CPU_FREQ_GOV_PERFORMANCE
@@ -349,6 +355,13 @@ config CPU_FREQ_GOV_SAVAGEDZEN
 	  
 config CPU_FREQ_GOV_LULZACTIVEQ
         tristate "'lulzactiveq' cpufreq governor"
+        depends on CPU_FREQ && NO_HZ && HOTPLUG_CPU
+        help	
+		
+	  If in doubt, say N.
+	  
+config CPU_FREQ_GOV_PEGASUSQPLUS
+        tristate "'pegasusq plus' cpufreq policy governor"
         depends on CPU_FREQ && NO_HZ && HOTPLUG_CPU
         help	
 		
