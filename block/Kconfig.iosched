@@ -42,7 +42,7 @@ config CFQ_GROUP_IOSCHED
 	default n
 	---help---
 	  Enable group IO scheduling in CFQ.
-
+	  
 config IOSCHED_ROW
 	tristate "ROW I/O scheduler"
 	default y
@@ -74,36 +74,45 @@ config IOSCHED_SIOPLUS
 	  basic merging, trying to keep a minimum overhead. It is aimed
 	  mainly for aleatory access devices (eg: flash devices).
 	  
-config IOSCHED_VR
-	tristate "V(R) I/O scheduler"
-	default y
-	---help---
-	  Requests are chosen according to SSTF with a penalty of rev_penalty
-	  for switching head direction.
-
 config IOSCHED_ZEN
 	tristate "Zen I/O scheduler"
 	default y
 	---help---
 	  FCFS, dispatches are back-inserted, deadlines ensure fairness.
 	  Should work best with devices where there is no travel delay.
+	  
+config IOSCHED_VR
+	tristate "V(R) I/O scheduler"
+	default y
+	---help---
+	  Requests are chosen according to SSTF with a penalty of rev_penalty
+	  for switching head direction.
+	  
+config IOSCHED_FIFO
+	tristate "FIFO I/O scheduler"
+	default y
+	---help---
+	Fifo is similar to no-op I/O scheduler and it's a minimal scheduler 
+	that does basic merging and sorting. 
+
+
 
 
 choice
 	prompt "Default I/O scheduler"
-	default DEFAULT_CFQ
+	default DEFAULT_NOOP
 	help
 	  Select the I/O scheduler which will be used by default for all
 	  block devices.
 
-	config DEFAULT_DEADLINE
+	config DEFAULT_NOOP
+		bool "No-op"
+
+	  config DEFAULT_DEADLINE
 		bool "Deadline" if IOSCHED_DEADLINE=y
 
 	config DEFAULT_CFQ
 		bool "CFQ" if IOSCHED_CFQ=y
-
-	config DEFAULT_NOOP
-		bool "No-op"
 
 	config DEFAULT_ROW
 		bool "ROW" if IOSCHED_ROW=y
@@ -113,25 +122,29 @@ choice
 
 	config DEFAULT_SIOPLUS
 		bool "sioplus" if IOSCHED_SIOPLUS=y
-		
-	config DEFAULT_VR
-		bool "V(R)" if IOSCHED_VR=y
 
 	config DEFAULT_ZEN
 		bool "ZEN" if IOSCHED_ZEN=y
+	
+	config DEFAULT_VR
+		bool "V(R)" if IOSCHED_VR=y
 
+	config DEFAULT_FIFO
+		bool "fifo"		
+		
 endchoice
 
 config DEFAULT_IOSCHED
 	string
+	default "noop" if DEFAULT_NOOP
 	default "deadline" if DEFAULT_DEADLINE
 	default "cfq" if DEFAULT_CFQ
-	default "noop" if DEFAULT_NOOP
 	default "row" if DEFAULT_ROW
 	default "sio" if DEFAULT_SIO
 	default "sioplus" if DEFAULT_SIOPLUS
-	default "vr" if DEFAULT_VR
 	default "zen" if DEFAULT_ZEN
+	default "vr" if DEFAULT_VR
+	default "fifo" if DEFAULT_FIFO
 
 endmenu
 
