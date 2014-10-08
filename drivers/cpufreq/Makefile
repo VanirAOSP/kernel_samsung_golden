@@ -19,6 +19,7 @@ obj-$(CONFIG_CPU_FREQ_GOV_SAVAGEDZEN)   += cpufreq_savagedzen.o
 obj-$(CONFIG_CPU_FREQ_GOV_LULZACTIVEQ)	+= cpufreq_lulzactiveq.o
 obj-$(CONFIG_CPU_FREQ_GOV_PEGASUSQPLUS) += cpufreq_pegasusqplus.o
 obj-$(CONFIG_CPU_FREQ_GOV_ZENX)		+= cpufreq_zenx.o
+obj-$(CONFIG_CPU_FREQ_LIMITS_ON_SCREENOFF) += cpufreq_limits_on_screenoff.o
 
 # CPUfreq cross-arch helpers
 obj-$(CONFIG_CPU_FREQ_TABLE)		+= freq_table.o
