@@ -22,9 +22,9 @@
 #include <linux/kobject.h>
 #include <linux/sysfs.h>
 
-static bool screenoff_cpu_freq_limits = false;
-static unsigned int screenoff_min_cpufreq = 0;
-static unsigned int screenoff_max_cpufreq = 0;
+static bool screenoff_cpu_freq_limits = true;
+static unsigned int screenoff_min_cpufreq = 100000;
+static unsigned int screenoff_max_cpufreq = 400000;
 static unsigned int screenoff_prev_min_cpufreq = 0;
 static unsigned int screenoff_prev_max_cpufreq = 0;
 bool (*touchscreen_is_suspend)(void);
@@ -33,13 +33,18 @@ bool (*touchscreen_is_suspend)(void);
 extern bool bt404_is_suspend(void);
 #endif
 
+#ifdef CONFIG_TOUCHSCREEN_ATMEL_MXT224S
+extern bool mxt244s_is_suspend(void);
+#endif
+
 static int cpufreq_callback(struct notifier_block *nfb,
 		unsigned long event, void *data)
 {
 	if (screenoff_cpu_freq_limits) {
 		struct cpufreq_policy *policy = data;
 		int new_min = 0, new_max = 0;
-		bool is_suspend = bt404_is_suspend();
+		
+		bool is_suspend = touchscreen_is_suspend();
 
 		if (event != CPUFREQ_ADJUST)
 			return 0;
@@ -122,6 +127,9 @@ static int cpufreqlimits_driver_init(void)
 	
 #ifdef CONFIG_TOUCHSCREEN_ZINITIX_BT404
 	touchscreen_is_suspend = bt404_is_suspend;
+#endif
+#ifdef CONFIG_TOUCHSCREEN_ATMEL_MXT224S
+	touchscreen_is_suspend = mxt244s_is_suspend;
 #endif
 	
 	if (!touchscreen_is_suspend)

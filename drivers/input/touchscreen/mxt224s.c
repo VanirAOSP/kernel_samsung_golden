@@ -156,6 +156,8 @@
 #define REFERENCE_OFFSET		16384
 #define DELTA_OFFSET			0
 
+#define SCREENOFF_CPUFREQ_LIMITS
+
 enum {
 	IN_BUILT_IN = 0,
 	IN_BOARD,
@@ -477,6 +479,16 @@ static void mxt_late_resume(struct early_suspend *);
 #ifdef CONFIG_USB_SWITCHER
 extern int micro_usb_register_usb_notifier(struct notifier_block *nb);
 extern int use_ab8505_iddet;
+#endif
+
+/*
+ * ChronoMonochome: add in-touchscreen support for screenoff cpufreq limits feature
+ */
+#ifdef SCREENOFF_CPUFREQ_LIMITS
+static bool is_suspend;
+bool mxt244s_is_suspend(void) {
+	return is_suspend;
+}
 #endif
 
 static int mxt_read_mem(struct mxt_data *data, u16 reg, u8 len, u8 *buf)
@@ -2434,12 +2446,27 @@ out:
 static void mxt_early_suspend(struct early_suspend *h)
 {
 	struct mxt_data *data = container_of(h, struct mxt_data, early_suspend);
+#ifdef SCREENOFF_CPUFREQ_LIMITS
+	is_suspend = true;
+	int cpu;
+	for_each_online_cpu(cpu) {
+		cpufreq_update_policy(cpu);
+	}
+#endif
+	
 	mxt_suspend(&data->client->dev);
 }
 
 static void mxt_late_resume(struct early_suspend *h)
 {
 	struct mxt_data *data = container_of(h, struct mxt_data, early_suspend);
+#ifdef SCREENOFF_CPUFREQ_LIMITS
+	is_suspend = false;
+	int cpu;
+	for_each_online_cpu(cpu) {
+		cpufreq_update_policy(cpu);
+	}
+#endif
 	mxt_resume(&data->client->dev);
 }
 #endif
