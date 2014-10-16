@@ -349,7 +349,7 @@ CHECK		= sparse
 
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
-KERNELFLAGS	= -Ofast -DNDEBUG -ftree-loop-im -ftree-loop-ivcanon -fivopts -fsection-anchors -funsafe-loop-optimizations -funswitch-loops -frename-registers -frerun-cse-after-loop -fgcse-after-reload -Wno-maybe-uninitialized -fgcse-sm -fgcse-las -fweb -ftracer -march=armv7-a -mfpu=neon -mtune=cortex-a9 
+KERNELFLAGS	= -Ofast -DNDEBUG -ftree-loop-im -ftree-loop-ivcanon -fivopts -fsection-anchors -funsafe-loop-optimizations -funswitch-loops -frename-registers -frerun-cse-after-loop -fgcse-after-reload -Wno-maybe-uninitialized -fgcse-sm -fgcse-las -fweb -ftracer
 MODFLAGS        = -DMODULE $(KERNELFLAGS) 
 CFLAGS_MODULE   = $(MODFLAGS) 
 AFLAGS_MODULE   = $(MODFLAGS)
