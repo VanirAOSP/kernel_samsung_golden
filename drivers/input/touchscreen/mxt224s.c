@@ -21,6 +21,12 @@
 #define MXT_DEBUG
 #endif
 
+#define SCREENOFF_CPUFREQ_LIMITS
+
+#ifdef SCREENOFF_CPUFREQ_LIMITS
+#include <linux/cpufreq.h>
+#endif
+
 #define TOUCH_BOOSTER
 #define CHECK_ANTITOUCH
 #define SHAPETOUCH
@@ -155,8 +161,6 @@
 /* Spec offset */
 #define REFERENCE_OFFSET		16384
 #define DELTA_OFFSET			0
-
-#define SCREENOFF_CPUFREQ_LIMITS
 
 enum {
 	IN_BUILT_IN = 0,
