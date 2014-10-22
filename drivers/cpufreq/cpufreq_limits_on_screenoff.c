@@ -23,7 +23,7 @@
 #include <linux/sysfs.h>
 
 static bool screenoff_cpu_freq_limits = true;
-static unsigned int screenoff_min_cpufreq = 100000;
+static unsigned int screenoff_min_cpufreq = 50000;
 static unsigned int screenoff_max_cpufreq = 400000;
 static unsigned int screenoff_prev_min_cpufreq = 0;
 static unsigned int screenoff_prev_max_cpufreq = 0;
