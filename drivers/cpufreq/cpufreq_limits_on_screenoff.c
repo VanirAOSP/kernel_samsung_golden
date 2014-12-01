@@ -24,7 +24,7 @@
 
 static bool screenoff_cpu_freq_limits = true;
 static unsigned int screenoff_min_cpufreq = 100000;
-static unsigned int screenoff_max_cpufreq = 400000;
+static unsigned int screenoff_max_cpufreq = 500000;
 static unsigned int screenoff_prev_min_cpufreq = 0;
 static unsigned int screenoff_prev_max_cpufreq = 0;
 bool (*touchscreen_is_suspend)(void);
