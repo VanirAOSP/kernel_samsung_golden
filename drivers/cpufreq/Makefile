@@ -21,6 +21,7 @@ obj-$(CONFIG_CPU_FREQ_GOV_PEGASUSQPLUS) += cpufreq_pegasusqplus.o
 obj-$(CONFIG_CPU_FREQ_GOV_ZENX)		+= cpufreq_zenx.o
 obj-$(CONFIG_CPU_FREQ_GOV_ZZMOOVE)	+= cpufreq_zzmoove.o
 obj-$(CONFIG_CPU_FREQ_GOV_WHEATLEY)     += cpufreq_wheatley.o
+obj-$(CONFIG_CPU_FREQ_GOV_LAGFREE)      += cpufreq_lagfree.o
 
 obj-$(CONFIG_CPU_FREQ_LIMITS_ON_SCREENOFF) += cpufreq_limits_on_screenoff.o
 
