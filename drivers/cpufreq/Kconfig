@@ -199,6 +199,13 @@ config CPU_FREQ_DEFAULT_GOV_ZZMOOVE
 	  CPU Hotplug modifications partially taken from ktoonservative
 	  governor from ktoonsez KT747-JB kernel
     	  
+config CPU_FREQ_DEFAULT_GOV_WHEATLEY
+	bool "wheatley"
+	select CPU_FREQ_GOV_WHEATLEY
+	select CPU_FREQ_GOV_PERFORMANCE
+	help
+	  Use the CPUFreq governor 'wheatley' as default.
+    	  
 endchoice
 
 config CPU_FREQ_GOV_PERFORMANCE
@@ -404,6 +411,10 @@ config CPU_FREQ_GOV_ZZMOOVE
  	  conservative 'smoove' governor from Michael Weingaertner.
 	  Modified by Zane Zaminsky November 2012 to be
 	  hotplug-able and optimzed for use with Samsung I9300.
+	  
+config CPU_FREQ_GOV_WHEATLEY
+	tristate "'wheatley' cpufreq governor"
+	depends on CPU_FREQ
 
 config CPU_FREQ_LIMITS_ON_SCREENOFF
 	tristate "CPUfreq limits on screen off driver"
