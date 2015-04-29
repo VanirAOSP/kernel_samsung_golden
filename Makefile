@@ -247,7 +247,7 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = gcc
 HOSTCXX      = g++
-HOSTCFLAGS = -Wall -Wmissing-prototypes -Wstrict-prototypes -Ofast -fomit-frame-pointer -fgcse-las -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-unused-variable -Wno-unused-value
+HOSTCFLAGS = -Ofast -fomit-frame-pointer -fgcse-las 
 HOSTCXXFLAGS = -Ofast -fgcse-las
 
 # Decide whether to build built-in, modular, or both.
@@ -349,7 +349,26 @@ CHECK		= sparse
 
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
-KERNELFLAGS	= -Ofast -DNDEBUG -ftree-loop-im -ftree-loop-ivcanon -fivopts -fsection-anchors -funsafe-loop-optimizations -funswitch-loops -frename-registers -frerun-cse-after-loop -fgcse-after-reload -Wno-maybe-uninitialized -fgcse-sm -fgcse-las -fweb -ftracer
+		  
+KERNELFLAGS	= -Ofast -fivopts \
+		  -fgcse-las -fgcse-sm \
+		  -fgcse-after-reload \
+		  -ftree-loop-ivcanon \
+		  -fsection-anchors \
+		  -fipa-pta -frename-registers \
+		  -frerun-cse-after-loop -fweb \
+		  -ftree-loop-im -ftracer \
+		  -funsafe-loop-optimizations \
+		  -funswitch-loops \
+		  -Wno-overflow \
+		  -Wno-unused-result \
+		  -Wno-unused-value \
+		  -Wno-maybe-uninitialized \
+		  -Wno-unused-variable \
+		  -fno-strict-aliasing \
+		  -fno-aggressive-loop-optimizations \
+		  -fno-common 
+		  		  
 MODFLAGS        = -DMODULE $(KERNELFLAGS) 
 CFLAGS_MODULE   = $(MODFLAGS) 
 AFLAGS_MODULE   = $(MODFLAGS)
@@ -368,13 +387,7 @@ LINUXINCLUDE    := -I$(srctree)/arch/$(hdr-arch)/include \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
-KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
-		   -fno-strict-aliasing -fno-common \
-		   -Werror-implicit-function-declaration \
-		   -Wno-format-security \
-		   -fno-delete-null-pointer-checks \
-		   -fomit-frame-pointer \
-		   $(KERNELFLAGS)
+KBUILD_CFLAGS   := $(KERNELFLAGS)
 
 KBUILD_AFLAGS_KERNEL  :=
 KBUILD_CFLAGS_KERNEL  :=
