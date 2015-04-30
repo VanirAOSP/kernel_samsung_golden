@@ -1539,7 +1539,7 @@ start:
 		if (ret < 0) {
 			dev_err(dev, "%s write failed %d\n",
 					__func__, __LINE__);
-			return;
+			return 0;
 		}
 		msleep(1);
 		/* Disable host, device detection and enable VBUS Valid comporator */
@@ -1547,7 +1547,7 @@ start:
 				USBOTGCTRL, IDDEVENA, 0x0);
 		if (ret < 0) {
 			dev_err(dev, "%s write failed %d\n", __func__, __LINE__);
-			return ;
+			return 0;
 		}
 		msleep(1);
 		/* Set iddet IP SW controllable */
@@ -1555,7 +1555,7 @@ start:
 				REGIDDETCTRL3, IDDETSWCTRLENA, IDDETSWCTRLENA);
 		if (ret < 0) {
 			dev_err(dev, "%s write failed %d\n", __func__, __LINE__);
-			return;
+			return 0;
 		}
 		msleep(1);
 		/* */

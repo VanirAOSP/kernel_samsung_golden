@@ -177,13 +177,13 @@ static struct miscdevice alps_device = {
 
 static int alps_probe(struct platform_device *dev)
 {
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 	return 0;
 }
 
 static int alps_remove(struct platform_device *dev)
 {
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 	return 0;
 }
 
@@ -257,7 +257,7 @@ static int __init alps_init(void)
 	struct input_dev *idev;
 	int ret;
 
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 
 	ret = platform_driver_register(&alps_driver);
 	if (ret)
@@ -350,7 +350,7 @@ out_region:
 
 static void __exit alps_exit(void)
 {
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 
 #ifdef CONFIG_HAS_EARLYSUSPEND
 	unregister_early_suspend(&alps_early_suspend_handler);

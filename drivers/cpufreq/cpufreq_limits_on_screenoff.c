@@ -123,7 +123,8 @@ static struct kobject *cpufreq_kobject;
 
 static int cpufreqlimits_driver_init(void)
 {
-	int ret;
+	struct cpufreq_policy *data = cpufreq_cpu_get(0);
+        int ret;
 	
 #ifdef CONFIG_TOUCHSCREEN_ZINITIX_BT404
 	touchscreen_is_suspend = bt404_is_suspend;
@@ -132,13 +133,12 @@ static int cpufreqlimits_driver_init(void)
 	touchscreen_is_suspend = mxt244s_is_suspend;
 #endif
 	
-	if (!touchscreen_is_suspend)
+        if (!touchscreen_is_suspend)
 		/*
 		 * FixMe! Replace it with -EOPNOTSUPP
 		 */
 		return -1;
 	
-	struct cpufreq_policy *data = cpufreq_cpu_get(0);
 	if (!screenoff_min_cpufreq)
 		screenoff_min_cpufreq = data->min;
 	if (!screenoff_max_cpufreq)

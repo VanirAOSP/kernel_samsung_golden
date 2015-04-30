@@ -462,11 +462,12 @@ static void gpio_keys_report_event(struct gpio_button_data *bdata)
 	unsigned int type = button->type ?: EV_KEY;
 	int state = (gpio_get_value_cansleep(button->gpio) ? 1 : 0) ^ button->active_low;
 #if !defined(CONFIG_SAMSUNG_PRODUCT_SHIP)
-	printk(KERN_DEBUG "[KEY] key: %s gpio_keys_report_event state = %d \n",
-		button->desc, state);
-
-	/* Forced Upload Mode checker */
+        
+        /* Forced Upload Mode checker */
 	bool bState = false;
+	
+        printk(KERN_DEBUG "[KEY] key: %s gpio_keys_report_event state = %d \n",
+		button->desc, state);
 
 	bState = state ? true : false;
 

@@ -680,7 +680,7 @@ __setup("lpm_boot=", sec_bat_set_boot_mode);
 static int muic_accessory_notify(struct notifier_block *self,
 			       unsigned long action, void *dev)
 {
-	pr_info("%s is called (0x%02x)\n", __func__, action);
+	pr_info("%s is called (0x%02lx)\n", __func__, action);
 
 	switch (action) {
 	case USB_BOOT_OFF_PLUGGED:
@@ -715,7 +715,7 @@ static int muic_accessory_notify(struct notifier_block *self,
 static int muic_notify(struct notifier_block *self,
 			       unsigned long action, void *dev)
 {
-	pr_info("%s is called (0x%02x)\n", __func__, action);
+	pr_info("%s is called (0x%02lx)\n", __func__, action);
 
 	if (action & USB_SWITCH_DISCONNECTION_EVENT)
 		abb_battery_cb();

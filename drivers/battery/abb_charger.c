@@ -1011,7 +1011,7 @@ static void ab8500_chg_fill_reg_data(struct ab8500_charger_info *di)
 static void ab8500_chg_show_error_log(struct ab8500_charger_info *di)
 {
 	dev_info(di->dev, "ERROR IRQ_FLAG : 0x%x\n", di->flags.irq_flag);
-	dev_info(di->dev, "FIRST_IRQ : 0x%x, time_stamps : %d\n",
+	dev_info(di->dev, "FIRST_IRQ : 0x%x, time_stamps : %ld\n",
 		 di->flags.irq_first, di->flags.irq_first_time_stamps);
 	pr_info("%s\n", di->flags.reg_addr);
 	pr_info("%s\n", di->flags.reg_data);
@@ -1074,6 +1074,7 @@ static bool ab8500_chg_check_ovp_status(struct ab8500_charger_info *di)
 		di->flags.irq_flag_shadow &= ~F_VBUS_OVV;
 		ab8500_chg_set_charge(di, true);
 	}
+	return 0;
 }
 
 
@@ -2275,7 +2276,7 @@ static int __devinit ab8500_chg_probe(struct platform_device *pdev)
 
 	ret = ab8500_chg_create_attrs(di->psy.dev);
 	if (ret) {
-		dev_err(&di->dev,
+		dev_err(di->dev,
 			"%s : Failed to create_attrs\n", __func__);
 		goto err_supply_unreg;
 	}

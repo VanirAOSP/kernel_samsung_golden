@@ -17,6 +17,8 @@
 	$
  */
 
+#include <linux/i2c.h>
+
 /**
  * @defgroup
  * @brief

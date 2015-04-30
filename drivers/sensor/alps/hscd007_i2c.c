@@ -158,12 +158,12 @@ static int hscd_power_on(void)
 {
 	int err = 0;
 
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 
 	if (hscd_power.regulator_vdd) {
 		err = regulator_enable(hscd_power.regulator_vdd);
 		if (err) {
-			alps_errmsg("Couldn't enable VDD %d\n", __func__, err);
+			alps_errmsg("%s Couldn't enable VDD %d\n", __func__, err);
 			return err;
 		}
 	}
@@ -171,7 +171,7 @@ static int hscd_power_on(void)
 	if (hscd_power.regulator_vio) {
 		err = regulator_enable(hscd_power.regulator_vio);
 		if (err) {
-			alps_errmsg("Couldn't enable VIO %d\n", __func__, err);
+			alps_errmsg("%s Couldn't enable VIO %d\n", __func__, err);
 			return err;
 		}
 	}
@@ -184,19 +184,19 @@ static int hscd_power_off(void)
 {
 	int err = 0;
 
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 
 	if (hscd_power.regulator_vdd) {
 		err = regulator_disable(hscd_power.regulator_vdd);
 		if (err) {
-			alps_errmsg("Couldn't disable VDD %d\n", __func__, err);
+			alps_errmsg("%s Couldn't disable VDD %d\n", __func__, err);
 			return err;
 		}
 	}
 	if (hscd_power.regulator_vio) {
 		err = regulator_disable(hscd_power.regulator_vio);
 		if (err) {
-			alps_errmsg("Couldn't disable VIO %d\n", __func__, err);
+			alps_errmsg("%s Couldn't disable VIO %d\n", __func__, err);
 			return err;
 		}
 	}
@@ -211,7 +211,7 @@ int hscd_self_test_A(void)
 	if (atomic_read(&flgSuspend) == 1)
 		return -1;
 
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 
 	/* Control resister1 backup */
 	cr1[0] = HSCD_CTRL1;
@@ -293,7 +293,7 @@ int hscd_self_test_A(void)
 int hscd_self_test_B(void)
 {
     if (atomic_read(&flgSuspend) == 1) return -1;
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
     return 0;
 }
 
@@ -336,7 +336,7 @@ void hscd_activate(int flgatm, int flg, int dtime)
 				&& (flgatm == 1))
 		return;
 
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 
 	if (flg != 0)	flg = 1;
 
@@ -370,7 +370,7 @@ void hscd_register_init(void)
 {
 	u8  buf[2];
 
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 
 	buf[0] = HSCD_CTRL3;
 	buf[1] = 0x80;
@@ -414,7 +414,7 @@ static ssize_t selftest_show(struct device *dev,
 	else
 		result2 = 0;
 
-	alps_info("%s: result, A = %d, B = %d\n", result1, result2);
+	alps_info(": result, A = %d, B = %d\n", result1, result2);
 
 	return snprintf(buf, PAGE_SIZE, "%d, %d\n", result1, result2);
 }
@@ -532,7 +532,7 @@ static int hscd_probe(struct i2c_client *client,
 	int ret = 0;
 	struct device *magnetic_device = NULL;
 
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 
 	this_client = client;
 
@@ -555,7 +555,7 @@ static int hscd_probe(struct i2c_client *client,
 	if (IS_ERR(hscd_power.regulator_vdd)) {
 		ret = PTR_ERR(hscd_power.regulator_vdd);
 		hscd_power.regulator_vdd = NULL;
-		alps_errmsg("Failed to get hscd_i2c_vdd %d\n", __func__, ret);
+		alps_errmsg("%s Failed to get hscd_i2c_vdd %d\n", __func__, ret);
 		goto err_setup_regulator;
 	}
 
@@ -563,7 +563,7 @@ static int hscd_probe(struct i2c_client *client,
 	if (IS_ERR(hscd_power.regulator_vio)) {
 		ret = PTR_ERR(hscd_power.regulator_vio);
 		hscd_power.regulator_vio = NULL;
-		alps_errmsg("Failed to get hscd_i2c_vio %d\n", __func__, ret);
+		alps_errmsg("%s Failed to get hscd_i2c_vio %d\n", __func__, ret);
 		goto err_setup_regulator;
 	}
 
@@ -571,17 +571,17 @@ static int hscd_probe(struct i2c_client *client,
 
 	/* read chip id */
 	ret = i2c_smbus_read_byte_data(this_client, WHO_AM_I);
-	alps_info("Device ID = 0x%x, Reading ID = 0x%x\n",
+	alps_info("%s Device ID = 0x%x, Reading ID = 0x%x\n",
 		__func__, DEVICE_ID, ret);
 
 	if (ret == DEVICE_ID) /* Normal Operation */
 		ret = 0;
 	else {
 		if (ret < 0)
-			alps_errmsg("i2c for reading chip id failed\n",
+			alps_errmsg("%s i2c for reading chip id failed\n",
 			       __func__);
 		else {
-			alps_errmsg("Device identification failed\n",
+			alps_errmsg("%s Device identification failed\n",
 			       __func__);
 			ret = -ENODEV;
 		}
@@ -599,7 +599,7 @@ static int hscd_probe(struct i2c_client *client,
 	atomic_set(&flgEna, 0);
 	atomic_set(&delay, 100);
 
-	alps_info("is Successful\n", __func__);
+	alps_info("%s is Successful\n", __func__);
 
 	return 0;
 
@@ -614,14 +614,14 @@ err_setup_regulator:
 	}
 exit:
 	this_client = NULL;
-	alps_errmsg("Failed!\n", __func__);
+	alps_errmsg("%s Failed!\n", __func__);
 
 	return ret;
 }
 
 static int __devexit hscd_remove(struct i2c_client *client)
 {
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 
 	hscd_activate(0, 0, atomic_read(&delay));
 #ifdef CONFIG_HAS_EARLYSUSPEND
@@ -633,7 +633,7 @@ static int __devexit hscd_remove(struct i2c_client *client)
 
 static int hscd_suspend(struct i2c_client *client, pm_message_t mesg)
 {
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 
 	atomic_set(&flgSuspend, 1);
 	hscd_activate(0, 0, atomic_read(&delay));
@@ -642,7 +642,7 @@ static int hscd_suspend(struct i2c_client *client, pm_message_t mesg)
 
 static int hscd_resume(struct i2c_client *client)
 {
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 
 	atomic_set(&flgSuspend, 0);
 	hscd_activate(0, atomic_read(&flgEna), atomic_read(&delay));
@@ -653,14 +653,14 @@ static int hscd_resume(struct i2c_client *client)
 #ifdef CONFIG_HAS_EARLYSUSPEND
 static void hscd_early_suspend(struct early_suspend *handler)
 {
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 
 	hscd_suspend(this_client, PMSG_SUSPEND);
 }
 
 static void hscd_early_resume(struct early_suspend *handler)
 {
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 
 	hscd_resume(this_client);
 }
@@ -693,14 +693,14 @@ static struct early_suspend hscd_early_suspend_handler = {
 
 static int __init hscd_init(void)
 {
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 
 	return i2c_add_driver(&hscd_driver);
 }
 
 static void __exit hscd_exit(void)
 {
-	alps_info("is called\n", __func__);
+	alps_info("%s is called\n", __func__);
 
 	i2c_del_driver(&hscd_driver);
 }

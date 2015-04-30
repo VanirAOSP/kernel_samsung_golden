@@ -3138,7 +3138,7 @@ static int __devinit ab8500_fg_probe(struct platform_device *pdev)
 
 	ret = ab8500_fg_create_attrs(di->psy.dev);
 	if (ret) {
-		dev_err(&di->dev,
+		dev_err(di->dev,
 			"%s : Failed to create_attrs\n", __func__);
 		goto err_req_irq;
 	}

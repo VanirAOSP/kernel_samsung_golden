@@ -1271,7 +1271,7 @@ void mcde_recovery_fb(struct s6e63m0_dsi_lcd *lcd)
 
 	fbi = get_primary_display_fb_info();
 	mfb = to_mcde_fb(fbi);
-        printk("mfb =[%x]\n");
+        printk("mfb =\n");
 	if (mfb->early_suspend.suspend) {
 	pr_info("%s MCDE suspend \n", __func__);
 	mfb->early_suspend.suspend(&mfb->early_suspend);
