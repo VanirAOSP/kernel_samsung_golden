@@ -195,7 +195,7 @@ export KBUILD_BUILDHOST := $(SUBARCH)
 #ARCH		?= $(SUBARCH)
 ARCH            ?= arm
 #CROSS_COMPILE	?= $(CONFIG_CROSS_COMPILE:"%"=%)
-CROSS_COMPILE   ?= ../../../prebuilts/gcc/linux-x86/arm/arm-cortex_a9-linux-gnueabihf/bin/arm-cortex_a9-linux-gnueabihf-
+CROSS_COMPILE   ?= ../../../prebuilts/gcc/linux-x86/arm/UBERTC-5.1/bin/arm-eabi-
 
 # Architecture as present in compile.h
 UTS_MACHINE 	:= $(ARCH)
