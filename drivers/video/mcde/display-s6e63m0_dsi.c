@@ -1581,7 +1581,7 @@ static int __devinit s6e63m0_dsi_probe(struct mcde_display_device *ddev)
 		calc_voltage_table(&lcd->smart, pdata->mtpData);
 		s6e63m0_init_smart_dimming_table_22(lcd);
 		
-		lcd->gamma_seq = (const u8 **)gamma_table_sm2;
+		lcd->gamma_seq = (void *) (const u8 **)gamma_table_sm2;
 #endif
 		memcpy(lcd->lcd_id, pdata->lcdId, 3);
 		switch (lcd->lcd_id[1]) {
