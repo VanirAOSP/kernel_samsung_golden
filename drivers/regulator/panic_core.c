@@ -378,7 +378,7 @@ static int _regulator_panic_enable(struct regulator_dev *rdev)
 	if (rdev->use_count == 0) {
 		/* do we need to enable the supply regulator first */
 		if (rdev->supply) {
-			ret = _regulator_panic_enable(rdev->supply);
+			ret = _regulator_panic_enable((void *) rdev->supply);
 			if (ret < 0) {
 				printk(KERN_ERR "%s: failed to enable %s: %d\n",
 				       __func__, rdev_get_name(rdev), ret);
@@ -473,7 +473,7 @@ static int _regulator_panic_disable(struct regulator_dev *rdev,
 		}
 
 		/* decrease our supplies ref count and disable if required */
-		*supply_rdev_ptr = rdev->supply;
+		*supply_rdev_ptr = (void *) rdev->supply;
 
 		rdev->use_count = 0;
 	} else if (rdev->use_count > 1) {
