@@ -4515,17 +4515,17 @@ static int ab850x_codec_set_dai_tdm_slot(struct snd_soc_dai *dai,
 	case 0:
 		break;
 	case 1:
-		i = find_first_bit(&tx_mask, sizeof(tx_mask));
+		i = find_first_bit((void*) &tx_mask, sizeof(tx_mask));
 		snd_soc_update_bits(codec, REG_DASLOTCONF1, mask, slots+i);
 		snd_soc_update_bits(codec, REG_DASLOTCONF2, mask, slots+i);
 		snd_soc_update_bits(codec, REG_DASLOTCONF3, mask, slots+i);
 		snd_soc_update_bits(codec, REG_DASLOTCONF4, mask, slots+i);
 		break;
 	case 2:
-		i = find_first_bit(&tx_mask, sizeof(tx_mask));
+		i = find_first_bit((void*) &tx_mask, sizeof(tx_mask));
 		snd_soc_update_bits(codec, REG_DASLOTCONF1, mask, slots+i);
 		snd_soc_update_bits(codec, REG_DASLOTCONF3, mask, slots+i);
-		i = find_next_bit(&tx_mask, sizeof(tx_mask), i+1);
+		i = find_next_bit((void*) &tx_mask, sizeof(tx_mask), i+1);
 		snd_soc_update_bits(codec, REG_DASLOTCONF2, mask, slots+i);
 		snd_soc_update_bits(codec, REG_DASLOTCONF4, mask, slots+i);
 		break;
