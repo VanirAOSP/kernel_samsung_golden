@@ -277,7 +277,7 @@ static void update_mcde_opp(struct device *dev,
 	if (req_ape != requested_qos) {
 		requested_qos = req_ape;
 		prcmu_qos_update_requirement(PRCMU_QOS_APE_OPP,
-						dev_name(dev), req_ape);
+						(char *)dev_name(dev), req_ape);
 		pr_info("Requested APE QOS = %d\n", req_ape);
 	}
 
