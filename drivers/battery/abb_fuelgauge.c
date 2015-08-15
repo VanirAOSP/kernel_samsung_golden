@@ -3008,7 +3008,7 @@ static int __devinit ab8500_fg_probe(struct platform_device *pdev)
 		return -ENODEV;
 	}
 
-	di->pdata = plat->sec_bat;
+	di->pdata = (void *) plat->sec_bat;
 	di->gpadc = ab8500_gpadc_get();
 
 	mutex_init(&di->cc_lock);
