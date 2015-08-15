@@ -155,7 +155,7 @@ static void enable_led_notification(void)
 	if(!bln_blink_mode)
 		bln_enable_backlights(get_led_mask());
 	else
-		kthread_run(&blink_thread, NULL,"bln_blink_thread");
+		kthread_run((void *) &blink_thread, NULL,"bln_blink_thread");
 
 	pr_info("%s: notification led enabled\n", __FUNCTION__);
 }
