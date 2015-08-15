@@ -244,7 +244,7 @@ static int hwreg_ioctl(struct inode *inode, struct file *filp,
 static struct file_operations hwreg_fops = {
 	.open = hwreg_open,
 	.release = hwreg_release,
-	.unlocked_ioctl = hwreg_ioctl,
+	.unlocked_ioctl = (void *) hwreg_ioctl,
 	.owner = THIS_MODULE,
 };
 
