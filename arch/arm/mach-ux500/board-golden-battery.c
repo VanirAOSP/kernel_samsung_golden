@@ -589,10 +589,10 @@ sec_battery_platform_data_t sec_battery_pdata = {
 
 	/* Temperature check */
 	.thermal_source = SEC_BATTERY_THERMAL_SOURCE_ADC,
-	.temp_adc_table = temp_table,
+	.temp_adc_table = (void *)temp_table,
 	.temp_adc_table_size =
 		sizeof(temp_table)/sizeof(sec_bat_adc_table_data_t),
-	.temp_amb_adc_table = temp_table,
+	.temp_amb_adc_table = (void *)temp_table,
 	.temp_amb_adc_table_size =
 		sizeof(temp_table)/sizeof(sec_bat_adc_table_data_t),
 
