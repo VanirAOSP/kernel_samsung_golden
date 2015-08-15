@@ -2590,7 +2590,7 @@ static struct ab8500_platform_data ab8500_platdata = {
 	.irq_base	= MOP500_AB8500_IRQ_BASE,
 	.regulator	= &golden_ab8500_regulator_plat_data,
 #ifdef CONFIG_BATTERY_SAMSUNG
-	.sec_bat	= &sec_battery_pdata,
+	.sec_bat	= (void *) &sec_battery_pdata,
 #else
 	.battery	= &ab8500_bm_data,
 	.charger	= &ab8500_charger_plat_data,
@@ -2639,7 +2639,7 @@ static struct ab8500_platform_data ab8505_platdata = {
 	.irq_base	= MOP500_AB8500_IRQ_BASE,
 	.regulator	= &golden_ab8505_regulator_plat_data,
 #ifdef CONFIG_BATTERY_SAMSUNG
-	.sec_bat = &sec_battery_pdata,
+	.sec_bat = (void *) &sec_battery_pdata,
 #else
 	.battery	= &ab8500_bm_data,
 	.charger	= &ab8500_charger_plat_data,
@@ -2680,7 +2680,7 @@ static struct ab8500_platform_data ab8505_r04_platdata = {
 	.irq_base	= MOP500_AB8500_IRQ_BASE,
 	.regulator	= &golden_ab8505_regulator_plat_data,
 #ifdef CONFIG_BATTERY_SAMSUNG
-	.sec_bat = &sec_battery_pdata,
+	.sec_bat = (void *) &sec_battery_pdata,
 #else
 	.battery	= &ab8500_bm_data,
 	.charger	= &ab8500_charger_plat_data,
