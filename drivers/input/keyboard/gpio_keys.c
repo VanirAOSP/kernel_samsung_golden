@@ -355,7 +355,7 @@ static DEVICE_ATTR(disabled_keys, S_IWUSR | S_IRUGO,
 static DEVICE_ATTR(disabled_switches, S_IWUSR | S_IRUGO,
 		   gpio_keys_show_disabled_switches,
 		   gpio_keys_store_disabled_switches);
-static DEVICE_ATTR(wakeup_keys, 0664, NULL, wakeup_enable);
+static DEVICE_ATTR(wakeup_keys, 0664, NULL, (void *) wakeup_enable);
 
 static struct attribute *gpio_keys_attrs[] = {
 	&dev_attr_keys.attr,
