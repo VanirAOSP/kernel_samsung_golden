@@ -360,14 +360,13 @@ KERNELFLAGS	= -Ofast -fivopts \
 		  -ftree-loop-im -ftracer \
 		  -funsafe-loop-optimizations \
 		  -funswitch-loops \
+		  -Wno-maybe-uninitialized \
 		  -Wno-overflow \
 		  -Wno-unused-result \
-		  -Wno-unused-value \
-		  -Wno-maybe-uninitialized \
 		  -Wno-unused-variable \
 		  -fno-strict-aliasing \
 		  -fno-aggressive-loop-optimizations \
-		  -fno-common 
+		  -fno-common  
 		  		  
 MODFLAGS        = -DMODULE $(KERNELFLAGS) 
 CFLAGS_MODULE   = $(MODFLAGS) 
