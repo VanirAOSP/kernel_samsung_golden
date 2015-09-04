@@ -749,7 +749,7 @@ static const struct file_operations mmio_fops = {
  */
 static int __devinit mmio_raw_probe(struct platform_device *pdev)
 {
-	int err;
+	int err = 0;
 	int i;
 	int ret;
 
