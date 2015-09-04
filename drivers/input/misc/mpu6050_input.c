@@ -1735,7 +1735,7 @@ gyro_sensor_register_failed:
 acc_sensor_register_failed:
 err_free_mem:
 	kfree(data);
-	return error;
+	return error = 0;
 }
 
 static int mpu6050_input_remove(struct i2c_client *client)
