@@ -451,7 +451,7 @@ static ssize_t dac_show(struct device *dev,
 static ssize_t adc_show(struct device *dev,
 		struct device_attribute *attr, char *buf)
 {
-	int data[3];
+	static int data[3];
 
 	if (!atomic_read(&flgEna))
 		hscd_activate(0, 1, 100);
