@@ -443,7 +443,7 @@ static int proximity_adc_read(struct px3215_data *data)
 	int avg;
 	int min;
 	int max;
-	int total;
+	int total = 0;
 
 	do {
 		msleep(50);
