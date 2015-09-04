@@ -558,7 +558,7 @@ static int enter_sleep(struct cpuidle_device *dev,
 		 * Make sure the cpu that is scheduled first gets
 		 * the prcmu interrupt.
 		 */
-		irq_set_affinity(IRQ_DB8500_PRCMU1, cpumask_of(wake_cpu));
+		irq_set_affinity(IRQ_DB8500_PRCMU1, cpumask_of(wake_cpu=0));
 
 		context_vape_save();
 
