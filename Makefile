@@ -361,7 +361,6 @@ KERNELFLAGS	= -Ofast -fivopts \
 		  -funsafe-loop-optimizations \
 		  -funswitch-loops \
 		  -Wno-maybe-uninitialized \
-		  -Wno-overflow \
 		  -Wno-unused-result \
 		  -Wno-unused-variable \
 		  -fno-strict-aliasing \

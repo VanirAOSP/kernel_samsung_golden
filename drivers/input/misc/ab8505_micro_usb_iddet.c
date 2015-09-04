@@ -1466,7 +1466,7 @@ start:
 
 		id_voltage = ab8500_gpadc_convert(accessory->gpadc, USB_ID);
 		dev_info(dev, "USB-ID %d\n", id_voltage);
-		log_this(300, "USB-ID", id_voltage, NULL, 0);
+		log_this((unsigned char)300, "USB-ID", id_voltage, NULL, 0);
 
 		p = accessory->cables_param_list;
 		while (p->max != 0) {
