@@ -624,7 +624,7 @@ ssh_interceptor_route_output_ipv6(SshInterceptor interceptor,
   struct rt6_info *rt;
   u32 rt6i_flags;
   int error = 0;
-  struct neighbour *neigh;
+  struct neighbour *uninitialized_var (neigh);
 #ifdef DEBUG_LIGHT
   unsigned char dst_buf[SSH_IP_ADDR_STRING_SIZE];
   unsigned char src_buf[SSH_IP_ADDR_STRING_SIZE];
