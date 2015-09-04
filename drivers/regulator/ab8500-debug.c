@@ -1592,7 +1592,7 @@ int ab8500_regulator_debug_read(enum ab8500_regulator_id id,
 				struct ab8500_debug_regulator_status *s)
 {
 	int i;
-	u8 val;
+	u8 val = 0;
 	bool found;
 	int idx = 0;
 
