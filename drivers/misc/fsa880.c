@@ -347,7 +347,7 @@ static ssize_t show_current_connection(struct device *dev, struct device_attribu
 {
 	int i;
 	const char *string = NULL;
-	char c;
+	char c = 0;
 	struct FSA9480_instance *instance = dev_get_drvdata(dev);
 
 	if (instance->disabled)
@@ -422,7 +422,7 @@ static ssize_t store_smd_wakelock(struct device *dev, struct device_attribute *a
 static ssize_t show_usb_state(struct device *dev, struct device_attribute *attr,
 		char *buf)
 {
-	unsigned char c, device_type1, device_type2;
+	unsigned char c = 0, device_type1, device_type2;
 
 	read_FSA9480_register(&driver_instance, FSA9490_DEVICE_TYPE_1_REGISTER, &c);
 	device_type1 = c;
@@ -567,7 +567,7 @@ static unsigned long current_connection_mask(struct FSA9480_instance *instance)
 
 static unsigned long get_current_connection_mask(struct FSA9480_instance *instance)
 {
-	char c;
+	char c = 0;
 	int i;
 	unsigned long event = 0;
 	int event_found = 0;
@@ -774,7 +774,7 @@ static int fsa_detect_dev(struct FSA9480_instance *instance)
 static irqreturn_t FSA9480_irq_thread_fn(int irq, void *data)
 {
 	struct FSA9480_instance *instance = (struct FSA9480_instance *) data;
-	char dev_id;
+	char dev_id = 0;
 	printk(KERN_INFO "FSA9480_irq_thread_fn\n");
 
 	read_FSA9480_register(instance,
@@ -907,7 +907,7 @@ EXPORT_SYMBOL_GPL(usb_switch_disable);
 */
 static int reboot_pending(struct notifier_block *self, unsigned long type , void *arg)
 {
-	unsigned char c;
+	unsigned char c = 0;
 	struct FSA9480_instance *instance = container_of(self, struct FSA9480_instance, reboot_notifier);
 
 	if (instance && instance->current_switch) {
