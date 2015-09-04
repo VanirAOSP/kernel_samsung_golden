@@ -567,7 +567,7 @@ static struct attribute_group sec_common_board_prop_attr_group = {
 static void __init sec_common_create_board_props(void)
 {
 	struct kobject *board_props_kobj;
-	struct kobject *soc_kobj;
+	struct kobject *soc_kobj = 0;
 	int ret = 0;
 
 	board_props_kobj = kobject_create_and_add("board_properties", NULL);
