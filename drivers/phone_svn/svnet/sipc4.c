@@ -1102,7 +1102,7 @@ static int _write_fmt(struct sipc *si, struct ringbuf *rb, struct sk_buff *skb)
 static int _write_isi(struct sipc *si, struct sk_buff *skb)
 {
 	u8 *buf = wr_isi_msg;
-	int err;
+	int err = 0;
 	int tail;
 
 	dev_dbg(&si->svndev->dev,"IN %d %s\n",err, __func__);
