@@ -347,11 +347,11 @@ static int b2r2_blt_split_request(struct b2r2_blt_data *blt_data,
 		struct b2r2_control_instance **ctl,
 		int *n_split)
 {
-	int sstep_x, sstep_y, dstep_x, dstep_y;
+	static int sstep_x, sstep_y, dstep_x, dstep_y;
 	int dstart_x, dstart_y;
 	int bstart_x, bstart_y;
 	int dpos_x, dpos_y;
-	int bpos_x, bpos_y;
+	static int bpos_x, bpos_y;
 	int dso_x = 1;
 	int dso_y = 1;
 	int sf_x, sf_y;
