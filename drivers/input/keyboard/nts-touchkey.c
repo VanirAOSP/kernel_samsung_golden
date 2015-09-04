@@ -352,7 +352,7 @@ static int nts_touchkey_resume(struct device *dev)
 	struct i2c_client *client = to_i2c_client(dev);
 	struct nts_touchkey_data *data = i2c_get_clientdata(client);
 	int i;
-	int dbg_val[2];
+	static int dbg_val[2];
 
 	mutex_lock(&data->lock);
 	if (data->enabled) {
