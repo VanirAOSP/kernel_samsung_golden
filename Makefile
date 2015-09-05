@@ -245,10 +245,28 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 	  else if [ -x /bin/bash ]; then echo /bin/bash; \
 	  else echo sh; fi ; fi)
 
+KERNELFLAGS	= -Ofast -Wall -fivopts \
+		  -fgcse-las -fgcse-sm \
+		  -fgcse-after-reload \
+		  -ftree-loop-ivcanon \
+		  -fipa-pta -frename-registers \
+		  -frerun-cse-after-loop -fweb \
+		  -ftree-loop-im -ftracer \
+		  -funsafe-loop-optimizations \
+		  -funswitch-loops \
+		  -Wno-unused-function \
+		  -Wno-unused-label \
+		  -Wno-unused-result \
+		  -Wno-unused-value \
+		  -Wno-unused-variable \
+		  -fno-strict-aliasing \
+		  -fno-aggressive-loop-optimizations \
+		  -fno-common  
+		  		  
 HOSTCC       = gcc
 HOSTCXX      = g++
-HOSTCFLAGS = -Ofast -fomit-frame-pointer -fgcse-las 
-HOSTCXXFLAGS = -Ofast -fgcse-las
+HOSTCFLAGS = $(KERNELFLAGS)
+HOSTCXXFLAGS = -fsection-anchors $(KERNELFLAGS)
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
@@ -349,30 +367,12 @@ CHECK		= sparse
 
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
-		  
-KERNELFLAGS	= -Ofast -fivopts \
-		  -fgcse-las -fgcse-sm \
-		  -fgcse-after-reload \
-		  -ftree-loop-ivcanon \
-		  -fsection-anchors \
-		  -fipa-pta -frename-registers \
-		  -frerun-cse-after-loop -fweb \
-		  -ftree-loop-im -ftracer \
-		  -funsafe-loop-optimizations \
-		  -funswitch-loops \
-		  -Wno-maybe-uninitialized \
-		  -Wno-unused-result \
-		  -Wno-unused-variable \
-		  -fno-strict-aliasing \
-		  -fno-aggressive-loop-optimizations \
-		  -fno-common  
-		  		  
-MODFLAGS        = -DMODULE $(KERNELFLAGS) 
+MODFLAGS        = -DMODULE -fsection-anchors $(KERNELFLAGS) 
 CFLAGS_MODULE   = $(MODFLAGS) 
 AFLAGS_MODULE   = $(MODFLAGS)
 LDFLAGS_MODULE  = -T $(srctree)/scripts/module-common.lds
-CFLAGS_KERNEL   = $(KERNELFLAGS)
-AFLAGS_KERNEL	= $(KERNELFLAGS)
+CFLAGS_KERNEL   = -fsection-anchors $(KERNELFLAGS)
+AFLAGS_KERNEL	= -fsection-anchors $(KERNELFLAGS)
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage
 
 
@@ -385,7 +385,7 @@ LINUXINCLUDE    := -I$(srctree)/arch/$(hdr-arch)/include \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
-KBUILD_CFLAGS   := $(KERNELFLAGS)
+KBUILD_CFLAGS   := -fsection-anchors $(KERNELFLAGS)
 
 KBUILD_AFLAGS_KERNEL  :=
 KBUILD_CFLAGS_KERNEL  :=
