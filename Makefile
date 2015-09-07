@@ -250,6 +250,7 @@ KERNELFLAGS	= -Ofast -Wall -fivopts \
 		  -fgcse-after-reload \
 		  -ftree-loop-ivcanon \
 		  -fipa-pta -frename-registers \
+		  -fgraphite -fgraphite-identity \
 		  -frerun-cse-after-loop -fweb \
 		  -ftree-loop-im -ftracer \
 		  -funsafe-loop-optimizations \
@@ -261,12 +262,12 @@ KERNELFLAGS	= -Ofast -Wall -fivopts \
 		  -Wno-unused-variable \
 		  -fno-strict-aliasing \
 		  -fno-aggressive-loop-optimizations \
-		  -fno-common  
+		  -fno-common
 		  		  
 HOSTCC       = gcc
 HOSTCXX      = g++
-HOSTCFLAGS = $(KERNELFLAGS)
-HOSTCXXFLAGS = -fsection-anchors $(KERNELFLAGS)
+HOSTCFLAGS = -Wl,--sort-common $(KERNELFLAGS)
+HOSTCXXFLAGS = -Wl,--sort-common -fsection-anchors $(KERNELFLAGS)
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
@@ -367,12 +368,12 @@ CHECK		= sparse
 
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
-MODFLAGS        = -DMODULE -fsection-anchors $(KERNELFLAGS) 
+MODFLAGS        = -DMODULE -fsection-anchors -Wl,--sort-common $(KERNELFLAGS) 
 CFLAGS_MODULE   = $(MODFLAGS) 
 AFLAGS_MODULE   = $(MODFLAGS)
 LDFLAGS_MODULE  = -T $(srctree)/scripts/module-common.lds
-CFLAGS_KERNEL   = -fsection-anchors $(KERNELFLAGS)
-AFLAGS_KERNEL	= -fsection-anchors $(KERNELFLAGS)
+CFLAGS_KERNEL   = -fsection-anchors -Wl,--sort-common $(KERNELFLAGS)
+AFLAGS_KERNEL	= -fsection-anchors -Wl,--sort-common $(KERNELFLAGS)
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage
 
 
